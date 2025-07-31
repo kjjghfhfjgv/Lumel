@@ -40,3 +40,20 @@
 .read-the-docs {
   color: #888;
 }
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table__head__cell {
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.table__body__cell {
+  min-width: fit-content;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: center;
+}
