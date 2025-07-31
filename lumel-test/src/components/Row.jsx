@@ -34,16 +34,22 @@ const Row = ({ dataItem, handleIncVariance, handleIncValue }) => {
       </td>
       <td className="table__body__cell">
         <button
-          onClick={() =>
-            handleIncVariance(dataItem.parentId, dataItem.id, value)
-          }
+          onClick={() => {
+            if (!value.length) return;
+            setValue("");
+            handleIncVariance(dataItem.parentId, dataItem.id, value);
+          }}
         >
           Inc %
         </button>
       </td>
       <td className="table__body__cell">
         <button
-          onClick={() => handleIncValue(dataItem.parentId, dataItem.id, value)}
+          onClick={() => {
+            if (!value.length) return;
+            setValue("");
+            handleIncValue(dataItem.parentId, dataItem.id, value);
+          }}
         >
           Inc Value
         </button>
