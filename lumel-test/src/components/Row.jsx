@@ -53,6 +53,6 @@ const Row = ({ dataItem, handleIncVariance, handleIncValue }) => {
   );
 };
 
-const excludedKeys = new Set(["id", "parentId", "variance"]);
+const excludedKeys = new Set(["id", "parentId", "variance", "depth"]);
 
 export default Row;

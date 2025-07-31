@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Table from "./components/Table";
 import data from "./data.json";
 
@@ -77,18 +77,35 @@ function App() {
     setDataSet(newData);
   };
 
+  const grandTotal = useMemo(() => {
+    const maxDepth = dataSet.reduce(
+      (acc, curr) => Math.max(acc, curr.depth),
+      0
+    );
+    let total = 0;
+    dataSet.forEach((item) => {
+      console.log({ item });
+
+      if (item.depth === maxDepth) {
+        total += item.value;
+      }
+    });
+    return total;
+  }, [dataSet]);
+
   return (
     <Table
       data={dataSet}
       onValueInc={onValueInc}
       onVarianceInc={onVarianceInc}
+      total={grandTotal}
     />
   );
 }
 
 const flattenList = (obj) => {
   const flat = [];
-  const flattener = (obj, parentId) => {
+  const flattener = (obj, parentId, depth) => {
     for (const arr of obj) {
       flat.push({
         id: arr.id,
@@ -96,15 +113,16 @@ const flattenList = (obj) => {
         value: arr.value,
         parentId,
         variance: 0,
+        depth,
       });
 
       if (arr.children) {
-        flattener(arr.children, arr.id);
+        flattener(arr.children, arr.id, depth + 1);
       }
     }
   };
 
-  flattener(obj, null);
+  flattener(obj, null, 0);
 
   return flat;
 };

@@ -1,6 +1,6 @@
 import Row from "./Row";
 
-const Table = ({ data, onVarianceInc, onValueInc }) => {
+const Table = ({ data, onVarianceInc, onValueInc, total }) => {
   const handleIncVariance = (parentId, id, value) => {
     onVarianceInc(parentId, id, Number(value));
   };
@@ -12,7 +12,7 @@ const Table = ({ data, onVarianceInc, onValueInc }) => {
   return (
     <table className="table">
       <thead>
-        <tr className="table__header">
+        <tr>
           {keys.map((key) => (
             <th key={key.id} className="table__head__cell">
               {key.label}
@@ -20,7 +20,7 @@ const Table = ({ data, onVarianceInc, onValueInc }) => {
           ))}
         </tr>
       </thead>
-      <tbody className="table__body">
+      <tbody>
         {data.map((dataItem) => (
           <Row
             key={dataItem.id}
@@ -29,6 +29,10 @@ const Table = ({ data, onVarianceInc, onValueInc }) => {
             dataItem={dataItem}
           />
         ))}
+        <tr>
+          <td className="table__body__cell grand__total">Grand Total</td>
+          <td className="table__body__cell">{total}</td>
+        </tr>
       </tbody>
     </table>
   );
